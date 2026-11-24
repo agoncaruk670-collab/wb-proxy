@@ -10,9 +10,8 @@ export default async function handler(req, res) {
   const host = 'generativelanguage.' + 'googleapis.com';
   const models = [
     'gemini-flash-latest',
-    'gemini-2.5-flash',
-    'gemini-pro-latest',
-    'gemini-2.5-pro'
+    'gemini-3.0-flash',
+    'gemini-pro-latest'
   ];
 
   let lastStatus = 503;
@@ -32,7 +31,7 @@ export default async function handler(req, res) {
     if (r.ok) {
       return res.status(200).send(lastText);
     }
-    if (r.status !== 503 && r.status !== 429) {
+    if (r.status === 400 || r.status === 401 || r.status === 403) {
       break;
     }
   }
