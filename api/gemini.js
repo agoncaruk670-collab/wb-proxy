@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   const models = [
     'gemini-flash-latest',
     'gemini-3.0-flash',
-    'gemini-pro-latest'
+    'gemini-flash-latest'
   ];
 
   let lastStatus = 503;
@@ -34,6 +34,7 @@ export default async function handler(req, res) {
     if (r.status === 400 || r.status === 401 || r.status === 403) {
       break;
     }
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   }
 
   res.status(lastStatus).send(lastText);
